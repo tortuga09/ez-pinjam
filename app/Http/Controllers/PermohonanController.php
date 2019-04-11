@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use Auth;
 use DB;
+use Mail;
+use App\Mail\PermohonanEmail;
+
 
 class PermohonanController extends Controller
 {
@@ -288,13 +291,24 @@ class PermohonanController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+        $data = $request->all(); //dd($data);
         $ref = $data['ref'];
 
-        $permohonan = Permohonan::create($data);
+        $permohonan = Permohonan::create($data); //dd($permohonan);
+
+        Mail::to($request->input('email'))->send(new PermohonanEmail($permohonan, $ref));
+
+        if (Mail::failures())
+        {
+          return redirect()->back();
+        }
+        else
+        {
+          return redirect()->action('PermohonanController@index', ['ref' => $ref]);
+        }
 
         // return view('welcome', compact('ref'));
-        return redirect()->action('PermohonanController@index', ['ref' => $ref]);
+        // return redirect()->action('PermohonanController@index', ['ref' => $ref]);
     }
 
 
