@@ -68,6 +68,7 @@ Route::get('/aset/pemulangan', 'AsetController@pulang')->name('aset.pulang');
 Route::get('/aset/pemulangan/{id}', 'AsetController@pulangAset')->name('aset.pulangAset');
 Route::post('/aset/pemulangan/{id}', 'AsetController@pulangUpdate')->name('aset.pulangUpdate');
 Route::delete('/aset/hapus/{id}/{type}', 'AsetController@destroy')->name('aset.hapus');
+Route::get('/aset/cetak/{id}/{type}', 'AsetController@downloadPDF')->name('aset.downloadPDF');
 
 // change password
 Route::get('/changePassword','HomeController@showChangePasswordForm')->name('change');

@@ -31,7 +31,7 @@
               </table>
 
               <hr>
-              <a href="#" target="_blank"><button class="btn btn-primary" name="select" id="select" type="submit">Cetak Maklumat Lengkap</button></a>
+              <a href="{{ route('aset.downloadPDF', ['id' => $list->id, 'type' => $type]) }}" target="_blank"><button class="btn btn-primary" name="select" id="select">Cetak Maklumat Lengkap</button></a>
               <br><br>
 
               <table class="table table-bordered">
