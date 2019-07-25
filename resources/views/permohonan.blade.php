@@ -33,7 +33,7 @@
 
 </head>
 
-<body onload="document.pemohon.ref.focus(); document.pemohon.nama.focus()">
+<body onload="document.pemohon.ref.focus(); document.pemohon.tujuan.focus()">
 
   <style>
   .borderless td, .borderless th {
@@ -55,26 +55,63 @@
       <a class="navbar-brand">Sistem Pinjaman Aset Sewaan ICT</a>
     </div>
     <!-- /.navbar-header -->
-
-    <!-- Navigation -->
+    <ul class="nav navbar-top-links navbar-right">
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+          <i class="fa fa-user fa-fw"></i> <em>{{ Auth::User()->nama}}</em> <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-user">
+          <li style="text-align:right;">
+            <a href="#update-admin" data-toggle="modal"><i class="fa fa-info-circle fa-fw"></i>
+              {{ (Auth::user()->peranan == 'Pentadbir') ? 'Profil Pentadbir' : 'Profil' }}</a>
+          </li>
+          <li class="divider"></li>
+          <li style="text-align:right;"><a href="{{ route('logout') }}" onclick="event.preventDefault();   document.getElementById('logout-form').submit();"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+        </ul>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+          {{ csrf_field() }}
+        </form>
+        <!-- /.dropdown-user -->
+      </li>
+      <!-- /.dropdown -->
+    </ul>
     <!-- /.navbar-top-links -->
+
     <div class="navbar-default sidebar" role="navigation">
-      <div class="sidebar-nav navbar-collapse" >
+      <div class="sidebar-nav navbar-collapse">
         <ul class="nav" id="side-menu">
-          <li><a href="/"><i class="fa fa-home fa-fw"></i> <strong>Laman Utama</strong></a></li>
+          @if(Auth::user()->peranan == 'Pentadbir')
+          <li><a href="{{ route('home') }}"><i class="fa fa-home fa-fw"></i> <strong>Laman Utama</strong></a></li>
+          @elseif(Auth::user()->peranan == 'Pengguna')
+          <li><a href="{{ route('user.utama') }}"><i class="fa fa-home fa-fw"></i> <strong>Laman Utama</strong></a></li>
+          @endif
           <li>&nbsp;</li>
           <li><a><i class="fa fa-user fa-fw"></i> <strong>Pengguna :</strong></a></li>
-          <li><a href="/permohonan">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Permohonan</a></li>
-          <li><a href="/semak">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Semak Status</a></li>
+          <li><a href="{{ route('permohonan') }}">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Permohonan</a></li>
+          <li><a href="{{ route('sejarah') }}">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Sejarah Permohonan</a></li>
           <li>&nbsp;</li>
-          <li><a><i class="fa fa-lock fa-fw"></i> <strong>Pentadbir :</strong></a></li>
-          <li><a href="{{ url('/login') }}">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Log Masuk</a></li>
+          @if(Auth::user()->peranan == 'Pentadbir')
+          <li><a><i class="fa fa-user fa-fw"></i> <strong>Pentadbir :</strong></a></li>
+          <li><a href="{{ route('admin.semak') }}">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Semak Permohonan</a></li>
+          <li><a href="{{ route('admin.senarai') }}">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Senarai Permohonan</a></li>
+          <li><a href="{{ route('admin.pergerakan') }}">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Pergerakan Aset</a></li>
+          <li><a href="{{ route('admin.laporan') }}">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Laporan</a></li>
           <li>&nbsp;</li>
+          <li><a><i class="fa fa-th-list fa-fw"></i> <strong>Maklumat Aset :</strong></a></li>
+          <li><a href="{{ route('aset.pulang') }}">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Pemulangan Aset</a></li>
+          <li><a href="{{ route('aset.senarai') }}">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Senarai Aset</a></li>
+          <li>&nbsp;</li>
+          <li><a><i class="fa fa-archive fa-fw"></i> <strong>Arkib :</strong></a></li>
+          <li><a href="{{ route('admin.arkib') }}">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Senarai Arkib</a></li>
+          <li>&nbsp;</li>
+          @endif
           <li><a><i class="fa fa-download fa-fw"></i> <strong>Muat Turun :</strong></a></li>
           <li><a href="#" target="_blank">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Manual Pengguna</a></li>
         </ul>
-      </div><!-- /.sidebar-collapse -->
-    </div><!-- /.navbar-static-side -->
+      </div>
+      <!-- /.sidebar-collapse -->
+    </div>
+    <!-- /.navbar-static-side -->
   </nav>
 
   <!-- Page Content -->
@@ -101,7 +138,7 @@
             </script>
 
             <div class="panel-body">
-              <form name="pemohon" action="{{ route('permohonan') }}" method="post" onsubmit="return validateForm(this)" role="form">
+              <form name="pemohon" action="{{ route('permohonan.store') }}" method="post" onsubmit="return validateForm(this)" role="form">
                 @csrf
                 <input type="hidden" name="test" value="test">
                 <div class="form-group">
@@ -115,42 +152,29 @@
                   </div>
                   <div class="form-group">
                     <label>Nama</label>
-                    <input class="form-control" name="nama" type="text" id="nama" size="60" required="required" />
+                    <input class="form-control" name="nama" type="text" id="nama" size="60" required="required" value="{{ Auth::user()->nama }}" readonly/>
                   </div>
                   <div class="form-group">
                     <label>Jawatan</label>
-                    <input class="form-control" name="jawatan" type="text" id="jawatan" size="60" required="required" />
+                    <input class="form-control" name="jawatan" type="text" id="jawatan" size="60" required="required" value="{{ Auth::user()->jawatans->jawatan }}" readonly/>
                   </div>
                   <div class="form-group">
                     <label>Bahagian</label>
-                    <select class="form-control" name="bahagian" required>
-                      <option disabled="disabled" selected="selected">-- Sila Pilih --</option>
-                      <option value="Pejabat Ketua Pengarah">Pejabat Ketua Pengarah</option>
-                      <option value="Pejabat Timbalan Ketua Pengarah (Perancangan)">Pejabat Timbalan Ketua Pengarah (Perancangan)</option>
-                      <option value="Pejabat Timbalan Ketua Pengarah (Operasi)">Pejabat Timbalan Ketua Pengarah (Operasi)</option>
-                      <option value="Bahagian Khidmat Pengurusan">Bahagian Khidmat Pengurusan</option>
-                      <option value="Bahagian Korporat">Bahagian Korporat</option>
-                      <option value="Bahagian Dasar Dan Perancangan">Bahagian Dasar Dan Perancangan</option>
-                      <option value="Bahagian Pengurusan Perpaduan">Bahagian Pengurusan Perpaduan</option>
-                      <option value="Bahagian Hal Ehwal Agama">Bahagian Hal Ehwal Agama</option>
-                      <option value="Bahagian Perhubungan Masyarakat Dan Kejiranan">Bahagian Perhubungan Masyarakat Dan Kejiranan</option>
-                      <option value="Bahagian Kesepaduan Sosial Dan Integrasi Nasional">Bahagian Kesepaduan Sosial Dan Integrasi Nasional</option>
-                      <option value="Institut Kajian Dan Latihan Integrasi Nasional">Institut Kajian Dan Latihan Integrasi Nasional</option>
-                    </select>
+                    <input class="form-control" name="bahagian" type="text" id="bahagian" size="60" value="{{ Auth::user()->bahagians->bahagian }}" readonly/>
                   </div>
                   <div class="form-group">
                     <label>Unit</label>
-                    <input class="form-control" name="unit" type="text" id="unit" size="60" />
+                    <input class="form-control" name="unit" type="text" id="unit" size="60" value="{{ Auth::user()->unit }}" readonly/>
                   </div>
                   <div class="form-group">
                     <label>No. Telefon</label>
-                    <input class="form-control" name="notel" type="text" id="notel" size="12" maxlength="12" required="required" placeholder="cth : 03-88837000 @ 012-3456789"/>
+                    <input class="form-control" name="notel" type="text" id="notel" size="12" maxlength="12" required="required" placeholder="cth : 03-88837000 @ 012-3456789" value="{{ Auth::user()->no_tel }}" readonly/>
                   </div>
                 </div> <!-- /.col-lg-6 -->
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label>E-mail</label>
-                    <input class="form-control" name="email" type="email" id="email" size="60" required="required"/>
+                    <input class="form-control" name="email" type="email" id="email" size="60" required="required" value="{{ Auth::user()->email }}" readonly/>
                   </div>
                   <div class="form-group">
                     <label>Tujuan</label>
@@ -328,6 +352,75 @@
   </center>
 </div>
 <!-- / .footer -->
+
+<form name="admin" action="{{ route('profile.update', ['id' => Auth::user()->id]) }}" method="post">
+  @csrf
+  <input type="hidden" name="_method" value="PATCH">
+  <div class="panel-body">
+    <div class="modal fade" id="update-admin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+      <div class="modal-dialog">
+        <div class="modal-content panel-primary">
+          <div class="modal-header panel-heading">
+            <h4 class="modal-title" id="myModalLabel">Kemaskini Profil</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label>Peranan</label>
+                  <input class="form-control" name="peranan" type="text" id="peranan" value="{{ Auth::user()->peranan }}" size="60" required="required" readonly/>
+                </div>
+                <div class="form-group">
+                  <label>Nama</label>
+                  <input class="form-control" name="nama" type="text" id="nama" size="60" required="required" value="{{ Auth::user()->nama }}" />
+                </div>
+                <div class="form-group">
+                  <label>Emel</label>
+                  <input class="form-control" name="email" type="email" id="email" size="60" required="required" value="{{ Auth::user()->email }}"/>
+                </div>
+                <div class="form-group">
+                  <label>Kata Laluan</label>
+                  <input class="form-control" name="password" type="password" id="password" />
+                  <p class="help-block"><em>Kosongkan jika Kata Laluan tidak ditukar.</em></p>
+                </div>
+                <div class="form-group">
+                  <label>Jawatan</label>
+                  <select class="form-control" name="jawatan" required>
+                    <option value="" selected disabled>-- Pilih Jawatan --</option>
+                    @foreach($jawatan as $jwtn)
+                    <option value="{{ $jwtn->id }}" {{ (Auth::user()->jawatan == $jwtn->id) ? 'selected' : '' }}>{{ $jwtn->jawatan }}</option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Bahagian</label>
+                  <select class="form-control" name="bahagian" required>
+                    <option value="" selected disabled>-- Pilih Bahagian --</option>
+                    @foreach($bahagian as $bhgn)
+                    <option value="{{ $bhgn->id }}" {{ (Auth::user()->bahagian == $bhgn->id) ? 'selected' : '' }}>{{ $bhgn->bahagian }}</option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Unit</label>
+                  <input class="form-control" name="unit" type="text" value="{{ Auth::user()->unit }}"/>
+                </div>
+                <div class="form-group">
+                  <label>No. Telefon</label>
+                  <input class="form-control" name="no_tel" type="text" value="{{ Auth::user()->no_tel }}"/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Kemaskini</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+          </div>
+        </div>  <!-- /.modal-content -->
+      </div>  <!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+  </div><!-- .panel-body -->
+</form>
 
 <!-- jQuery -->
 <script src="assets/vendor/jquery/jquery.min.js"></script>

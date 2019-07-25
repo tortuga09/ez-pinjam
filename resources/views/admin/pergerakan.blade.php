@@ -13,7 +13,7 @@
 <div id="page-wrapper">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-10"><br>
+      <div class="col-lg-12"><br>
         <div class="panel panel-primary">
           <div class="panel-heading">
             <strong>Pergerakan Aset Sewaan ICT</strong>
@@ -44,10 +44,12 @@
                     <strong>PRN :</strong> {{ $list->print1 }} {{ $list->print2 }} {{ $list->print3 }} {{ $list->print4 }}<br>
                     <strong>WLS :</strong> {{ $list->present1 }} {{ $list->present2 }}
                   </td>
-                  <td>{{ $list->tarikh_pinjam }}<br>hingga<br>{{$list->tarikh_pulang}}</td>
+                  <td>
+                    {{ $list->tarikh_pinjam }}<br>hingga<br>{{$list->tarikh_pulang}}<br>
+                  </td>
                   <td>{{ $list->location }}</td>
                   <td align="center">
-                    <a href="{{ route ('aset.pulangAset', ['id' => $list->id]) }}" class="btn btn-warning btn-circle"><i class="fa fa-share"></i></a>
+                    <a href="{{ route ('aset.pulangAset', ['id' => $list->id_permohonan]) }}" class="btn btn-warning btn-circle" title="Pemulangan"><i class="fa fa-share"></i></a>
                   </td>
                 </tr>
                 @endforeach

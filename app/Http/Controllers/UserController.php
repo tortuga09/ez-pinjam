@@ -4,10 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\LookupBahagian;
+use App\LookupJawatan;
 use Brian2694\Toastr\Facades\Toastr;
+use App\Pengguna;
 
 class UserController extends Controller
 {
+  public function __construct()
+  {
+    $this->middleware('auth');
+  }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -160,5 +169,41 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function storePegawai(Request $request)
+    { //dd($request);
+      $data = $request->all();
+      $data['status'] = 'Aktif';
+
+      Pengguna::create($data);
+
+      Toastr::success('Pegawai telah ditambah.', 'Berjaya!', [
+        "positionClass" => "toast-top-center",
+        "closeButton" => "true",
+      ]);
+
+      // bagi response redirect ke halaman edit semula
+      return redirect()->route('list.hq');
+    }
+
+
+    public function updatePegawai(Request $request, $id)
+    { //dd($request);
+
+      $pengguna = Pengguna::find($id);
+
+      $data = $request->all();
+
+      $pengguna->update($data);
+
+      Toastr::success('Maklumat Pegawai telah dikemaskini.', 'Berjaya!', [
+        "positionClass" => "toast-top-center",
+        "closeButton" => "true",
+      ]);
+
+      // bagi response redirect ke halaman edit semula
+      return redirect()->route('list.hq');
     }
 }

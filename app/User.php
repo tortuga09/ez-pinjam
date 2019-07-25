@@ -17,9 +17,9 @@ class User extends Authenticatable
      */
 
     protected $table ='users';
-    
+
     protected $fillable = [
-        'nama', 'email', 'password', 'peranan'
+        'nama', 'email', 'password', 'peranan', 'bahagian', 'jawatan', 'unit', 'no_ic', 'no_tel'
     ];
 
     /**
@@ -30,4 +30,15 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function bahagians()
+    {
+        return $this->hasOne('App\LookupBahagian', 'id', 'bahagian');
+    }
+
+
+    public function jawatans()
+    {
+        return $this->hasOne('App\LookupJawatan', 'id', 'jawatan');
+    }
 }

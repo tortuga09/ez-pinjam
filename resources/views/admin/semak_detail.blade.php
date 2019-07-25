@@ -13,7 +13,7 @@
 <div id="page-wrapper">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-10">
+      <div class="col-lg-12">
         <h3 class="page-header">Maklumat Permohonan Pinjaman Aset Sewaan ICT</h3>
         <div class="panel panel-primary">
           <div class="panel-heading">

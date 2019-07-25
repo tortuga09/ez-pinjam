@@ -63,13 +63,12 @@
         <ul class="nav" id="side-menu">
           <li><a href="/"><i class="fa fa-home fa-fw"></i> <strong>Laman Utama</strong></a></li>
           <li>&nbsp;</li>
-          <li><a><i class="fa fa-user fa-fw"></i> <strong>Pengguna :</strong></a></li>
-          <li><a href="/permohonan">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Permohonan</a></li>
-          <li><a href="/semak">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Semak Status</a></li>
+          <li><a href="{{ url('/login') }}"><i class="fa fa-lock fa-fw"></i> <strong>Log Masuk</strong></a></li>
           <li>&nbsp;</li>
-          <li><a><i class="fa fa-lock fa-fw"></i> <strong>Pentadbir :</strong></a></li>
-          <li><a href="{{ url('/login') }}">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Log Masuk</a></li>
-          <li>&nbsp;</li>
+          <!-- <li><a><i class="fa fa-user fa-fw"></i> <strong>Pengguna :</strong></a></li> -->
+          <!-- <li><a href="/permohonan">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Permohonan</a></li> -->
+          <!-- <li><a href="/semak">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Semak Status</a></li>
+          <li>&nbsp;</li> -->
           <li><a><i class="fa fa-download fa-fw"></i> <strong>Muat Turun :</strong></a></li>
           <li><a href="#" target="_blank">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Manual Pengguna</a></li>
         </ul>
@@ -81,7 +80,7 @@
   <div id="page-wrapper">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-10"><br>
+        <div class="col-lg-12"><br>
           <div class="panel panel-primary">
             <div class="panel-heading">
               <strong>Semakan Status Permohonan Pinjaman Aset Sewaan ICT</strong>

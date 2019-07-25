@@ -8,7 +8,7 @@
 <div id="page-wrapper">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-10"><br>
+      <div class="col-lg-12"><br>
         <div class="panel panel-primary">
           <div class="panel-heading">
             <strong>Pemulangan Aset Sewaan ICT</strong>

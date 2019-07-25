@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 use Auth;
 use App\User;
 use App\Permohonan;
+use App\LookupBahagian;
+use App\LookupJawatan;
 use Illuminate\Support\Facades\Hash;
 use Brian2694\Toastr\Facades\Toastr;
 use DB;
+use App\Pengguna;
 
 class HomeController extends Controller
 {
@@ -29,10 +32,13 @@ class HomeController extends Controller
   */
   public function index()
   {
+    $bahagian = LookupBahagian::all();
+    $jawatan = LookupJawatan::all();
 
     if (Auth::user()->peranan == 'Developer') {
       return redirect()->route('developer');
     }
+
     elseif (Auth::user()->peranan == 'Pentadbir') {
 
       if (Hash::check('perpaduan@123', Auth::user()->password)) {
@@ -66,12 +72,13 @@ class HomeController extends Controller
         $pulang_print = DB::table('agihan_print')->where('catatan', '!=', '')->get();
         $pulang_present = DB::table('agihan_present')->where('catatan', '!=', '')->get();
 
-        return view('home', compact('user', 'baru', 'lulus', 'proses', 'arkib', 'nb_total', 'nb_tiada', 'nb_baki', 'lcd_total', 'lcd_tiada', 'lcd_baki', 'print_total', 'print_tiada', 'print_baki', 'present_total', 'present_tiada', 'present_baki', 'pulang_nb', 'pulang_lcd', 'pulang_print', 'pulang_present'));
+        return view('home', compact('user', 'baru', 'lulus', 'proses', 'arkib', 'nb_total', 'nb_tiada', 'nb_baki', 'lcd_total', 'lcd_tiada', 'lcd_baki', 'print_total', 'print_tiada', 'print_baki', 'present_total', 'present_tiada', 'present_baki', 'pulang_nb', 'pulang_lcd', 'pulang_print', 'pulang_present', 'bahagian', 'jawatan'));
       }
-
     }
+
     else {
-      return('adsadadadads');
+      // return('adsadadadads');
+      return redirect()->route('user.utama');
     }
 
   }
@@ -79,7 +86,10 @@ class HomeController extends Controller
 
   public function showChangePasswordForm()
   {
-    return view ('admin.change_password');
+    $bahagian = LookupBahagian::all();
+    $jawatan = LookupJawatan::all();
+
+    return view ('admin.change_password', compact('bahagian', 'jawatan'));
   }
 
 
@@ -136,8 +146,83 @@ class HomeController extends Controller
 
   public function dev()
   {
-    $user = User::all();
-    return view('developer.index', compact('user'));
+    $bahagian = LookupBahagian::all();
+    $jawatan = LookupJawatan::all();
+
+    if(Auth::user()->peranan != 'Developer')
+    {
+      Auth::logout();
+    }
+
+    else
+    {
+      $admin = User::where('peranan', '!=', 'Pengguna')->count();
+      $user = User::where('peranan', 'Pengguna')->count();
+      $pegawai = Pengguna::count();
+
+      return view('developer.index', compact('admin', 'user', 'pegawai', 'bahagian', 'jawatan'));
+    }
+  }
+
+
+  public function admin()
+  {
+    $bahagian = LookupBahagian::all();
+    $jawatan = LookupJawatan::all();
+
+    $admin = User::where('peranan', '!=', 'Pengguna')->get();
+    return view('developer.admin', compact('admin', 'bahagian', 'jawatan'));
+  }
+
+
+  public function user()
+  {
+    $bahagian = LookupBahagian::all();
+    $jawatan = LookupJawatan::all();
+
+    $user = User::where('peranan', 'Pengguna')->get();
+    return view('developer.user', compact('user', 'bahagian', 'jawatan'));
+  }
+
+
+  public function hq()
+  {
+    $bahagian = LookupBahagian::all();
+    $jawatan = LookupJawatan::all();
+
+    $hq = DB::table('penggunas')->orderBy('status', 'asc')->get();
+    return view('developer.hq', compact('user', 'bahagian', 'jawatan', 'hq'));
+  }
+
+
+  public function utama()
+  {
+    $bahagian = LookupBahagian::all();
+    $jawatan = LookupJawatan::all();
+
+    $total = Permohonan::where('user_id', Auth::id())->count();
+    $belum = Permohonan::where('user_id', Auth::id())->where('status', 'Diluluskan')->count();
+
+    return view('user_home', compact('bahagian', 'jawatan', 'total', 'belum'));
+  }
+
+
+  public function permohonan()
+  {
+    $bahagian = LookupBahagian::all();
+    $jawatan = LookupJawatan::all();
+    return view('permohonan', compact('bahagian', 'jawatan'));
+  }
+
+
+  public function sejarah()
+  {
+    $bahagian = LookupBahagian::all();
+    $jawatan = LookupJawatan::all();
+
+    $semak = Permohonan::where('user_id', Auth::id())->orderBy('id', 'desc')->get();
+
+    return view('sejarah', compact('bahagian', 'jawatan', 'semak'));
   }
 
 }

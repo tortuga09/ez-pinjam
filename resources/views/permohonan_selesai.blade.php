@@ -63,10 +63,10 @@
         <ul class="nav" id="side-menu">
           <li><a href="/"><i class="fa fa-home fa-fw"></i> <strong>Laman Utama</strong></a></li>
           <li>&nbsp;</li>
-          <li><a><i class="fa fa-user fa-fw"></i> <strong>Pengguna :</strong></a></li>
+          <!-- <li><a><i class="fa fa-user fa-fw"></i> <strong>Pengguna :</strong></a></li>
           <li><a href="/permohonan">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Permohonan</a></li>
           <li><a href="/semak">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Semak Status</a></li>
-          <li>&nbsp;</li>
+          <li>&nbsp;</li> -->
           <li><a><i class="fa fa-lock fa-fw"></i> <strong>Pentadbir :</strong></a></li>
           <li><a href="{{ url('/login') }}">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Log Masuk</a></li>
           <li>&nbsp;</li>

@@ -13,7 +13,7 @@
 <div id="page-wrapper">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-10"><br>
+      <div class="col-lg-12"><br>
         <div class="panel panel-primary">
           <div class="panel-heading">
             <strong>Senarai Permohonan Pinjaman Aset Sewaan ICT</strong>
@@ -40,10 +40,18 @@
                   <td>{{ $list->nama }}</td>
                   <td>{{ $list->bahagian }}</td>
                   <td>{{ $list->apply_date }}</td>
-                  <td><a title="{{ $list->sebab }}">{{ $list->status }}</a></td>
+                  <td>
+                    <a title="{{ $list->sebab }}">{{ $list->status }}</a><br>
+                    @if($list->status == 'Diluluskan' and date('d/m/Y') > $list->tarikh_pulang)
+                    <a href="{{ route('reminder', ['id' => $list->id]) }}"><button class="btn btn-danger btn-xs">Hantar Peringatan!</button></a>
+                    @endif
+                  </td>
                   <td align='center'>
-                    <button class="btn btn-warning btn-circle" title="Arkib" data-toggle="modal" data-target="#arkib"><i class='fa fa-folder-open'></i></button>
+                    <button type="button" class="btn btn-success btn-circle" data-toggle="modal" data-target="#info-{{ $list->id }}"><i class="fa fa-info-circle" title="Maklumat Permohonan"></i></button>
+                    <button class="btn btn-warning btn-circle" title="Arkib" data-toggle="modal" data-target="#arkib-{{ $list->id }}"><i class='fa fa-folder-open'></i></button>
+                    @if($list->status != 'Tidak Diluluskan')
                     <a href="{{ route('admin.cetak', ['id' => $list->id]) }}" target="_blank" class="btn btn-info btn-circle" title="Cetak Borang"><i class="fa fa-print"></i></a>
+                    @endif
                   </td>
                 </tr>
                 @endforeach
@@ -67,7 +75,7 @@
   @csrf
   <input type="hidden" name="_method" value="PATCH">
   <div class="panel-body">
-    <div class="modal fade" id="arkib" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal fade" id="arkib-{{ $list->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
       <div class="modal-dialog">
         <div class="modal-content panel-primary">
           <div class="modal-header panel-heading">
@@ -93,6 +101,87 @@
     </div><!-- /.modal -->
   </div><!-- .panel-body -->
 </form>
+@endforeach
+
+<!-- info modal -->
+@foreach($senarai as $list)
+<div class="panel-body">
+  <div class="modal fade" id="info-{{ $list->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+      <div class="modal-content panel-primary">
+        <div class="modal-header panel-heading">
+          <h4 class="modal-title" id="myModalLabel">Maklumat Permohonan</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-12">
+
+              <div class="col-md-5">
+                <label>Masa Pengambilan Aset</label>
+              </div>
+              <div class="col-md-7">
+                <input class="col-md-6 form-control" value="{{ $list->masa }}" readonly>
+              </div>
+              <br><br>
+              <div class="col-md-5">
+                <label>Tarikh Peminjaman</label>
+              </div>
+              <div class="col-md-7">
+                <input class="col-md-6 form-control" value="{{ $list->tarikh_pinjam }}" readonly>
+              </div>
+              <br><br>
+              <div class="col-md-5">
+                <label>Dijangka Pulang</label>
+              </div>
+              <div class="col-md-7">
+                <input class="col-md-6 form-control" value="{{ $list->tarikh_pulang }}" readonly>
+              </div>
+              <br><br>
+              <div class="col-md-5">
+                <label>Lokasi</label>
+              </div>
+              <div class="col-md-7">
+                <input class="col-md-6 form-control" value="{{ $list->location }}" readonly>
+              </div>
+              <br><br>
+              <div class="col-md-5">
+                <label>Komputer Riba</label>
+              </div>
+              <div class="col-md-7">
+                <input class="col-md-6 form-control" value="{{ $list->bil_nb }}" readonly>
+              </div>
+              <br><br>
+              <div class="col-md-5">
+                <label>Projektor LCD</label>
+              </div>
+              <div class="col-md-7">
+                <input class="col-md-6 form-control" value="{{ $list->bil_lcd }}" readonly>
+              </div>
+              <br><br>
+              <div class="col-md-5">
+                <label>Pencetak</label>
+              </div>
+              <div class="col-md-7">
+                <input class="col-md-6 form-control" value="{{ $list->bil_print }}" readonly>
+              </div>
+              <br><br>
+              <div class="col-md-5">
+                <label>Wireless Presenter</label>
+              </div>
+              <div class="col-md-7">
+                <input class="col-md-6 form-control" value="{{ $list->bil_present }}" readonly>
+              </div>
+              <br><br>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+        </div>
+      </div>  <!-- /.modal-content -->
+    </div>  <!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+</div><!-- .panel-body -->
 @endforeach
 
 @endsection

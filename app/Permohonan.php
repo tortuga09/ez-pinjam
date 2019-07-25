@@ -28,6 +28,7 @@ class Permohonan extends Model
       'bil_lcd',
       'bil_print',
       'bil_present',
+      'user_id'
 
     ];
 }

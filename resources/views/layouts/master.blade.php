@@ -83,6 +83,10 @@
         <ul class="nav" id="side-menu">
           <li><a href="{{ route('home') }}"><i class="fa fa-home fa-fw"></i> <strong>Laman Utama</strong></a></li>
           <li>&nbsp;</li>
+          <li><a><i class="fa fa-user fa-fw"></i> <strong>Pengguna :</strong></a></li>
+          <li><a href="{{ route('permohonan') }}">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Permohonan</a></li>
+          <li><a href="{{ route('sejarah') }}">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Sejarah Permohonan</a></li>
+          <li>&nbsp;</li>
           <li><a><i class="fa fa-user fa-fw"></i> <strong>Pentadbir :</strong></a></li>
           <li><a href="{{ route('admin.semak') }}">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Semak Permohonan</a></li>
           <li><a href="{{ route('admin.senarai') }}">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Senarai Permohonan</a></li>
@@ -136,6 +140,32 @@
                     <label>Kata Laluan</label>
                     <input class="form-control" name="password" type="password" id="password" />
                     <p class="help-block"><em>Kosongkan jika Kata Laluan tidak ditukar.</em></p>
+                  </div>
+                  <div class="form-group">
+                    <label>Jawatan</label>
+                    <select class="form-control" name="jawatan" required>
+                      <option value="" selected disabled>-- Pilih Jawatan --</option>
+                      @foreach($jawatan as $jwtn)
+                      <option value="{{ $jwtn->id }}" {{ ($user->jawatan == $jwtn->id) ? 'selected' : '' }}>{{ $jwtn->jawatan }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Bahagian</label>
+                    <select class="form-control" name="bahagian" required>
+                      <option value="" selected disabled>-- Pilih Bahagian --</option>
+                      @foreach($bahagian as $bhgn)
+                      <option value="{{ $bhgn->id }}" {{ ($user->bahagian == $bhgn->id) ? 'selected' : '' }}>{{ $bhgn->bahagian }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Unit</label>
+                    <input class="form-control" name="unit" type="text" value="{{ $user->unit }}"/>
+                  </div>
+                  <div class="form-group">
+                    <label>No. Telefon</label>
+                    <input class="form-control" name="no_tel" type="text" value="{{ $user->no_tel }}"/>
                   </div>
                 </div>
               </div>

@@ -15,18 +15,33 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/semak', function () {
-    return view('semak');
-});
+// Route::get('/semak', function () {
+//     return view('semak');
+// });
 
-Route::get('/permohonan', function () {
-    return view('permohonan');
-});
+// Route::get('/permohonan', function () {
+//     return view('permohonan');
+// });
 
-Auth::routes();
+// Auth::routes();
+Auth::routes(['register' => false]);
+
+Route::get('/daftar', 'DaftarController@daftar')->name('daftar');
+Route::post('/daftar', 'DaftarController@daftarSemak')->name('daftarSemak');
+Route::post('/daftar/pengguna', 'DaftarController@daftarPengguna')->name('daftarPengguna');
 
 Route::get('/dashboard', 'HomeController@index')->name('home');
 Route::get('/developer', 'HomeController@dev')->name('developer');
+Route::get('/developer/admin', 'HomeController@admin')->name('list.admin');
+Route::get('/developer/user', 'HomeController@user')->name('list.user');
+Route::get('/developer/hq', 'HomeController@hq')->name('list.hq');
+
+Route::post('/pegawai/tambah', 'UserController@storePegawai')->name('pegawai.add');
+Route::patch('/pegawai/kemaskini/{id}', 'UserController@updatePegawai')->name('pegawai.update');
+
+Route::get('/utama', 'HomeController@utama')->name('user.utama');
+Route::get('/permohonan', 'HomeController@permohonan')->name('permohonan');
+Route::get('/sejarah', 'HomeController@sejarah')->name('sejarah');
 
 Route::post('/admin/tambah', 'UserController@store')->name('user.add');
 Route::patch('/admin/kemaskini/{id}', 'UserController@update')->name('user.update');
@@ -59,7 +74,10 @@ Route::get('/changePassword','HomeController@showChangePasswordForm')->name('cha
 Route::post('/changePassword','HomeController@changePassword')->name('change.password');
 
 // unauthenticate User
-Route::post('/permohonan', 'PermohonanController@store')->name('permohonan');
+Route::post('/permohonan', 'PermohonanController@store')->name('permohonan.store');
 Route::get('/permohonan/{ref}', 'PermohonanController@index');
-Route::post('/semak', 'PermohonanController@show')->name('getSemak');
-Route::get('/getsemak', 'PermohonanController@show')->name('urlSemak');
+// Route::post('/semak', 'DaftarController@show')->name('getSemak');
+// Route::get('/getsemak', 'DaftarController@show')->name('urlSemak');
+
+// reminder
+Route::get('/peringatan/{id}', 'PermohonanController@reminder')->name('reminder');

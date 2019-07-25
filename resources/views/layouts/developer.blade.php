@@ -8,23 +8,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="icon" href="assets/images/jata.png">
+  <link rel="icon" href="{{asset('assets/images/jata.png')}}">
 
   <title>Sistem Pinjaman Aset Sewaan ICT</title>
 
   <!-- Bootstrap Core CSS -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{{asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
 
   <!-- MetisMenu CSS -->
-  <link href="assets/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+  <link href="{{asset('assets/vendor/metisMenu/metisMenu.min.css')}}" rel="stylesheet">
 
   <!-- Custom CSS -->
-  <link href="assets/dist/css/sb-admin-2.css" rel="stylesheet">
+  <link href="{{asset('assets/dist/css/sb-admin-2.css')}}" rel="stylesheet">
 
   <!-- Custom Fonts -->
-  <link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="{{asset('assets/vendor/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
 
   <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+
+  @yield('css')
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -77,9 +79,12 @@
     <div class="navbar-default sidebar" role="navigation">
       <div class="sidebar-nav navbar-collapse">
         <ul class="nav" id="side-menu">
-          <li><a href="#"><i class="fa fa-home fa-fw"></i> <strong>Laman Utama</strong></a></li>
+          <li><a href="/developer"><i class="fa fa-home fa-fw"></i> <strong>Laman Utama</strong></a></li>
           <li>&nbsp;</li>
-          <li><a href="/developer">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Utama</a></li>
+          <li><a href="{{ route('list.admin') }}">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Pentadbir</a></li>
+          <li><a href="{{ route('list.user') }}">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Pengguna Berdaftar</a></li>
+          <li>&nbsp;</li>
+          <li><a href="{{ route('list.hq') }}">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Pegawai Ibu Pejabat</a></li>
         </ul>
       </div>
       <!-- /.sidebar-collapse -->
@@ -109,16 +114,16 @@
 </div><!-- / .footer -->
 
 <!-- jQuery -->
-<script src="assets/vendor/jquery/jquery.min.js"></script>
+<script src="{{asset('assets/vendor/jquery/jquery.min.js')}}"></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="{{asset('assets/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
 
 <!-- Metis Menu Plugin JavaScript -->
-<script src="assets/vendor/metisMenu/metisMenu.min.js"></script>
+<script src="{{asset('assets/vendor/metisMenu/metisMenu.min.js')}}"></script>
 
 <!-- Custom Theme JavaScript -->
-<script src="assets/dist/js/sb-admin-2.js"></script>
+<script src="{{asset('assets/dist/js/sb-admin-2.js')}}"></script>
 
 <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 

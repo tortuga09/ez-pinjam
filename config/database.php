@@ -56,6 +56,15 @@ return [
             'engine' => null,
         ],
 
+        'mysql2' => [
+            'driver'    => env('DB_CONNECTION2'),
+            'host'      => env('DB_HOST2'),
+            'port'      => env('DB_PORT2'),
+            'database'  => env('DB_DATABASE2'),
+            'username'  => env('DB_USERNAME2'),
+            'password'  => env('DB_PASSWORD2'),
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', '127.0.0.1'),

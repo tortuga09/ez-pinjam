@@ -15,12 +15,13 @@
 <div id="page-wrapper">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-10"><br>
+      <div class="col-lg-12"><br>
         <div class="panel panel-primary">
           <div class="panel-heading">
             <strong>Laporan Peminjaman Aset Sewaan ICT</strong>
           </div>
           <div class="panel-body">
+            @if($laporan->isNotEmpty())
             <div class='table-responsive'>
               <table class="table table-bordered" id="dataTables-example">
                 <thead>
@@ -79,10 +80,9 @@
                 @endforeach
               </table>
             </div>
-
-
+            @else
             Tiada permohonan yang belum diambil tindakan.
-
+            @endif
           </div><!-- /.panel-body -->
         </div><!-- /.panel header -->
       </div><!-- /.col-lg-12 -->

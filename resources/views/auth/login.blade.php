@@ -24,6 +24,8 @@
   <!-- Custom Fonts -->
   <link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+  <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -63,13 +65,12 @@
         <ul class="nav" id="side-menu">
           <li><a href="/"><i class="fa fa-home fa-fw"></i> <strong>Laman Utama</strong></a></li>
           <li>&nbsp;</li>
-          <li><a><i class="fa fa-user fa-fw"></i> <strong>Pengguna :</strong></a></li>
-          <li><a href="/permohonan">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Permohonan</a></li>
-          <li><a href="/semak">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Semak Status</a></li>
+          <li><a href="{{ url('/login') }}"><i class="fa fa-lock fa-fw"></i> <strong>Log Masuk</strong></a></li>
           <li>&nbsp;</li>
-          <li><a><i class="fa fa-lock fa-fw"></i> <strong>Pentadbir :</strong></a></li>
-          <li><a href="{{ url('/login') }}">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Log Masuk</a></li>
-          <li>&nbsp;</li>
+          <!-- <li><a><i class="fa fa-user fa-fw"></i> <strong>Pengguna :</strong></a></li> -->
+          <!-- <li><a href="/permohonan">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Permohonan</a></li> -->
+          <!-- <li><a href="/semak">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Semak Status</a></li>
+          <li>&nbsp;</li> -->
           <li><a><i class="fa fa-download fa-fw"></i> <strong>Muat Turun :</strong></a></li>
           <li><a href="#" target="_blank">&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-fw"></i> Manual Pengguna</a></li>
         </ul>
@@ -84,21 +85,63 @@
         <div class="col-lg-10"><br>
           <div class="panel panel-primary">
             <div class="panel-heading">
-              <strong>Log Masuk Pentadbir</strong>
+              <strong>Log Masuk</strong>
             </div><!-- /.panel-heading -->
             <div class="panel-body">
 
               <!-- Nav tabs -->
               <ul class="nav nav-tabs">
-                <li class="active"><a href="#admin" data-toggle="tab">Pentadbir</a>
-                </li>
-                <li><a href="#developer" data-toggle="tab">Pembangun Sistem</a>
-                </li>
+                <li class="active"><a href="#user" data-toggle="tab">Pengguna</a></li>
+                <!-- <li class=""><a href="#admin" data-toggle="tab">Pentadbir</a></li> -->
+                <li><a href="#developer" data-toggle="tab">Pembangun Sistem</a></li>
               </ul>
 
               <!-- Tab panes -->
               <div class="tab-content">
-                <div class="tab-pane fade in active" id="admin">
+                <div class="tab-pane fade in active" id="user">
+                  <form name="admin" action="{{ route('login') }}" method="post">
+                    @csrf
+                    <br>
+                    <table class="table borderless">
+                      <tr>
+                        <td width="20%" height="20"><strong>Emel</strong></td>
+                        <td width="10"><div align="center"><strong>:</strong></div></td>
+                        <td>
+                          <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+
+                          @if ($errors->has('email'))
+                              <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $errors->first('email') }}</strong>
+                              </span>
+                          @endif
+                        </td>
+                      </tr>
+                      <tr>
+                        <td height="20"><strong>Kata Laluan</strong></td>
+                        <td><div align="center"><strong>:</strong></div></td>
+                        <td>
+                          <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+
+                          @if ($errors->has('password'))
+                              <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $errors->first('password') }}</strong>
+                              </span>
+                          @endif
+                        </td>
+                      </tr>
+                      <tr>
+                        <td height="40" colspan="4">
+                          <input class="btn btn-primary btn-lg btn-block" type="submit" name="submit" id="login" value="Log Masuk" />
+                        </td>
+                      </tr>
+                    </table>
+                    <div style="float:right;">
+                      <a href="/daftar">Daftar</a>
+                    </div>
+                  </form>
+                </div>
+
+                <div class="tab-pane fade in" id="admin">
                   <form name="admin" action="{{ route('login') }}" method="post">
                     @csrf
                     <br>
@@ -218,6 +261,10 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="assets/dist/js/sb-admin-2.js"></script>
+
+<script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+
+{!! Toastr::message() !!}
 
 </body>
 

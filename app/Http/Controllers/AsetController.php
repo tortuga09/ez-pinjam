@@ -7,6 +7,8 @@ use Brian2694\Toastr\Facades\Toastr;
 use Auth;
 use DB;
 use App\Permohonan;
+use App\LookupBahagian;
+use App\LookupJawatan;
 
 class AsetController extends Controller
 {
@@ -17,6 +19,9 @@ class AsetController extends Controller
      */
     public function index()
     {
+      $bahagian = LookupBahagian::all();
+      $jawatan = LookupJawatan::all();
+
         $user = Auth::user();
 
         $nb = DB::table('aset_nb')->get();
@@ -24,7 +29,7 @@ class AsetController extends Controller
         $print = DB::table('aset_print')->get();
         $present = DB::table('aset_present')->get();
 
-        return view('aset.index', compact('user', 'nb', 'lcd', 'print', 'present'));
+        return view('aset.index', compact('user', 'nb', 'lcd', 'print', 'present', 'bahagian', 'jawatan'));
     }
 
     /**
@@ -118,6 +123,9 @@ class AsetController extends Controller
      */
     public function show($id, $type)
     {
+      $bahagian = LookupBahagian::all();
+      $jawatan = LookupJawatan::all();
+
         $user = Auth::user();
 
         if($type == 1) {
@@ -168,7 +176,7 @@ class AsetController extends Controller
             ->get();
         }
 
-        return view('aset.pergerakan', compact('user', 'name', 'list', 'pergerakan'));
+        return view('aset.pergerakan', compact('user', 'name', 'list', 'pergerakan', 'bahagian', 'jawatan'));
     }
 
     /**
@@ -259,16 +267,22 @@ class AsetController extends Controller
 
     public function pulang()
     {
+      $bahagian = LookupBahagian::all();
+      $jawatan = LookupJawatan::all();
+
         $user = Auth::user();
 
         $senarai = Permohonan::where('status', 'Diluluskan')->get();
 
-        return view('aset.pemulangan', compact('user', 'senarai'));
+        return view('aset.pemulangan', compact('user', 'senarai', 'bahagian', 'jawatan'));
     }
 
 
     public function pulangAset($id)
     {
+      $bahagian = LookupBahagian::all();
+      $jawatan = LookupJawatan::all();
+
         $user = Auth::user();
 
         $pemohon = Permohonan::find($id);
@@ -314,7 +328,7 @@ class AsetController extends Controller
           return redirect()->route('aset.pulang');
         }
         else {
-          return view('aset.pemulangan_senarai', compact('id', 'user', 'pemohon', 'nb', 'lcd', 'prn', 'wls'));
+          return view('aset.pemulangan_senarai', compact('id', 'user', 'pemohon', 'nb', 'lcd', 'prn', 'wls', 'bahagian', 'jawatan'));
         }
     }
 
