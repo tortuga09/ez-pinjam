@@ -293,7 +293,7 @@ class PermohonanController extends Controller
 
     $user = Auth::user();
 
-    $senarai = Permohonan::where('status', '!=', 'Permohonan Baru')->where('status', '!=', 'Arkib')->get();
+    $senarai = Permohonan::where('status', '!=', 'Permohonan Baru')->where('status', '!=', 'Arkib')->orderBy('id', 'desc')->get();
 
     return view('admin.senarai', compact('user', 'senarai', 'bahagian', 'jawatan'));
   }

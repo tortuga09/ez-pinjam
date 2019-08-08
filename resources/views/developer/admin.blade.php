@@ -13,7 +13,7 @@
 <div id="page-wrapper">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-10"><br>
+      <div class="col-lg-12"><br>
 
         <div class="panel panel-primary">
           <div class="panel-heading">
@@ -26,6 +26,10 @@
                   <tr class='info'>
                     <th>Nama</th>
                     <th>Emel</th>
+                    <th>Jawatan</th>
+                    <th>Bahagian / Unit</th>
+                    <th>No. Telefon</th>
+                    <th>Status</th>
                     <td align='center'>
                       <button class="btn btn-success btn-circle"  title="Tambah Pentadbir" data-toggle="modal" data-target="#add-admin">
                         <i class='fa fa-plus'></i>
@@ -36,9 +40,13 @@
                 <tbody>
                   @foreach($admin as $admins)
                   <tr>
-                    <td >{{ $admins->nama }}</td>
+                    <td >{{ $admins->nama }}<br>No. K/P : {{ $admins->no_ic }}</td>
                     <td >{{ $admins->email }}</td>
-                    <td align='center' width='15%'>
+                    <td >{{ $admins->jawatans->jawatan }}</td>
+                    <td >{{ $admins->bahagians->bahagian }}<br>-{{ $admins->unit }}</td>
+                    <td >{{ $admins->no_tel }}</td>
+                    <td >{{ $admins->status }}</td>
+                    <td align='center' width='10%'>
                         <button type='submit' class='btn btn-warning btn-circle' title='Kemaskini' data-toggle="modal" data-target="#update-admin{{ $admins->id }}"><i class='fa fa-pencil'></i></button>
                       &nbsp;
                         <button type='submit' class='btn btn-danger btn-circle' title='Hapus'><i class='fa fa-trash-o'></i></button>
@@ -74,15 +82,45 @@
                 </div>
                 <div class="form-group">
                   <label>Nama</label>
-                  <input class="form-control" name="nama" type="text" id="nama" size="60" required="required" />
+                  <input class="form-control" name="nama" type="text" id="nama" required="required" />
+                </div>
+                <div class="form-group">
+                  <label>No. Kad Pengenalan</label>
+                  <input class="form-control" name="no_ic" type="text" maxlength="12" required="required" />
                 </div>
                 <div class="form-group">
                   <label>Emel</label>
-                  <input class="form-control" name="email" type="email" id="email" size="60" required="required" />
+                  <input class="form-control" name="email" type="email" id="email" required="required" />
                 </div>
                 <div class="form-group">
                   <label>Kata Laluan</label>
-                  <input class="form-control" type="text" id="email" size="60" value="perpaduan@123" required="required" readonly/>
+                  <input class="form-control" type="text"  value="perpaduan@123" required="required" readonly/>
+                </div>
+                <div class="form-group">
+                  <label>Jawatan</label>
+                  <select class="form-control" name="jawatan" required>
+                    <option value="" selected disabled>-- Pilih Jawatan --</option>
+                    @foreach($jawatan as $jawatans)
+                    <option value="{{ $jawatans->id }}">{{ $jawatans->jawatan }}</option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Bahagian</label>
+                  <select class="form-control" name="bahagian" required>
+                    <option value="" selected disabled>-- Pilih Bahagian --</option>
+                    @foreach($bahagian as $bhgn)
+                    <option value="{{ $bhgn->id }}">{{ $bhgn->bahagian }}</option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Unit</label>
+                  <input class="form-control" type="text" name="unit" required="required"/>
+                </div>
+                <div class="form-group">
+                  <label>No. Telefon</label>
+                  <input class="form-control" type="text" name="no_tel" required="required"/>
                 </div>
               </div>
             </div>
@@ -121,6 +159,10 @@
                   <input class="form-control" name="nama" type="text" id="nama" size="60" required="required" value="{{ $admins->nama }}" />
                 </div>
                 <div class="form-group">
+                  <label>No. Kad Pengenalan</label>
+                  <input class="form-control" name="no_ic" type="text" maxlength="12" required="required" value="{{ $admins->no_ic }}"/>
+                </div>
+                <div class="form-group">
                   <label>Emel</label>
                   <input class="form-control" name="email" type="email" id="email" size="60" required="required" value="{{ $admins->email }}"/>
                 </div>
@@ -128,6 +170,32 @@
                   <label>Kata Laluan</label>
                   <input class="form-control" name="password" type="password" id="password" />
                   <p class="help-block"><em>Kosongkan jika Kata Laluan tidak ditukar.</em></p>
+                </div>
+                <div class="form-group">
+                  <label>Jawatan</label>
+                  <select class="form-control" name="jawatan" required>
+                    <option value="" selected disabled>-- Pilih Jawatan --</option>
+                    @foreach($jawatan as $jawatans)
+                    <option value="{{ $jawatans->id }}" {{ ($jawatans->id == $admins->jawatan) ? 'selected' : '' }}>{{ $jawatans->jawatan }}</option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Bahagian</label>
+                  <select class="form-control" name="bahagian" required>
+                    <option value="" selected disabled>-- Pilih Bahagian --</option>
+                    @foreach($bahagian as $bhgn)
+                    <option value="{{ $bhgn->id }}" {{ ($bhgn->id == $admins->bahagian) ? 'selected' : '' }}>{{ $bhgn->bahagian }}</option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Unit</label>
+                  <input class="form-control" type="text" name="unit" required="required" value="{{ $admins->unit }}"/>
+                </div>
+                <div class="form-group">
+                  <label>No. Telefon</label>
+                  <input class="form-control" type="text" name="no_tel" required="required" value="{{ $admins->no_tel }}"/>
                 </div>
               </div>
             </div>
