@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+  return view('welcome');
 });
 
 // Route::get('/semak', function () {
@@ -24,7 +24,7 @@ Route::get('/', function () {
 // });
 
 // Auth::routes();
-Auth::routes(['register' => false]);
+Auth::routes(['register' => false, 'verify' => false]);
 
 Route::get('/daftar', 'DaftarController@daftar')->name('daftar');
 Route::post('/daftar', 'DaftarController@daftarSemak')->name('daftarSemak');
@@ -74,11 +74,14 @@ Route::get('/aset/cetak/{id}/{type}', 'AsetController@downloadPDF')->name('aset.
 Route::get('/changePassword','HomeController@showChangePasswordForm')->name('change');
 Route::post('/changePassword','HomeController@changePassword')->name('change.password');
 
-// unauthenticate User
-Route::post('/permohonan', 'PermohonanController@store')->name('permohonan.store');
-Route::get('/permohonan/{ref}', 'PermohonanController@index');
+
+
 // Route::post('/semak', 'DaftarController@show')->name('getSemak');
 // Route::get('/getsemak', 'DaftarController@show')->name('urlSemak');
 
 // reminder
 Route::get('/peringatan/{id}', 'PermohonanController@reminder')->name('reminder');
+
+// unauthenticate User
+Route::post('/permohonan', 'PermohonanController@store')->name('permohonan.store');
+Route::get('/permohonan/{ref}', 'PermohonanController@index');

@@ -83,152 +83,60 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-10"><br>
+          @if (session('error'))
+          <div class="alert alert-success" role="alert">
+            {{ session('error') }}
+          </div>
+          @endif
           <div class="panel panel-primary">
             <div class="panel-heading">
               <strong>Log Masuk</strong>
             </div><!-- /.panel-heading -->
             <div class="panel-body">
-
-              <!-- Nav tabs -->
-              <ul class="nav nav-tabs">
-                <li class="active"><a href="#user" data-toggle="tab">Pengguna</a></li>
-                <!-- <li class=""><a href="#admin" data-toggle="tab">Pentadbir</a></li> -->
-                <li><a href="#developer" data-toggle="tab">Pembangun Sistem</a></li>
-              </ul>
-
-              <!-- Tab panes -->
-              <div class="tab-content">
-                <div class="tab-pane fade in active" id="user">
-                  <form name="admin" action="{{ route('login') }}" method="post">
-                    @csrf
-                    <br>
-                    <table class="table borderless">
-                      <tr>
-                        <td width="20%" height="20"><strong>Emel</strong></td>
-                        <td width="10"><div align="center"><strong>:</strong></div></td>
-                        <td>
-                          <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
-
-                          @if ($errors->has('email'))
-                              <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $errors->first('email') }}</strong>
-                              </span>
-                          @endif
-                        </td>
-                      </tr>
-                      <tr>
-                        <td height="20"><strong>Kata Laluan</strong></td>
-                        <td><div align="center"><strong>:</strong></div></td>
-                        <td>
-                          <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                          @if ($errors->has('password'))
-                              <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $errors->first('password') }}</strong>
-                              </span>
-                          @endif
-                        </td>
-                      </tr>
-                      <tr>
-                        <td height="40" colspan="4">
-                          <input class="btn btn-primary btn-lg btn-block" type="submit" name="submit" id="login" value="Log Masuk" />
-                        </td>
-                      </tr>
-                    </table>
-                    <div style="float:right;">
-                      <a href="/daftar">Daftar</a>
+              <div class="col-md-12">
+                <form class="form-horizontal" action="{{ route('login') }}" method="post">
+                  @csrf
+                  <div class="col-md-2">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group">
+                      <label>E-Mel</label>
+                      <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+                      @if ($errors->has('email'))
+                      <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('email') }}</strong>
+                      </span>
+                      @endif
                     </div>
-                  </form>
-                </div>
-
-                <div class="tab-pane fade in" id="admin">
-                  <form name="admin" action="{{ route('login') }}" method="post">
-                    @csrf
-                    <br>
-                    <table class="table borderless">
-                      <tr>
-                        <td width="20%" height="20"><strong>Emel</strong></td>
-                        <td width="10"><div align="center"><strong>:</strong></div></td>
-                        <td>
-                          <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
-
-                          @if ($errors->has('email'))
-                              <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $errors->first('email') }}</strong>
-                              </span>
-                          @endif
-                        </td>
-                      </tr>
-                      <tr>
-                        <td height="20"><strong>Kata Laluan</strong></td>
-                        <td><div align="center"><strong>:</strong></div></td>
-                        <td>
-                          <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                          @if ($errors->has('password'))
-                              <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $errors->first('password') }}</strong>
-                              </span>
-                          @endif
-                        </td>
-                      </tr>
-                      <tr>
-                        <td height="40" colspan="4">
-                          <input class="btn btn-primary btn-lg btn-block" type="submit" name="submit" id="login" value="Log Masuk" />
-                        </td>
-                      </tr>
-                    </table>
-                  </form>
-                </div>
-                <div class="tab-pane fade" id="developer">
-                  <br>
-                  <form name="sys_dev" action="{{ route('login') }}" method="post">
-                    @csrf
-                    <table class="table borderless">
-                      <tr>
-                        <td width="20%" height="20"><strong>ID</strong></td>
-                        <td width="10"><div align="center"><strong>:</strong></div></td>
-                        <td>
-                          <input id="email" type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
-
-                          @if ($errors->has('email'))
-                              <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $errors->first('email') }}</strong>
-                              </span>
-                          @endif
-                        </td>
-                      </tr>
-                      <tr>
-                        <td height="20"><strong>Kata Laluan</strong></td>
-                        <td><div align="center"><strong>:</strong></div></td>
-                        <td>
-                          <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                          @if ($errors->has('password'))
-                              <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $errors->first('password') }}</strong>
-                              </span>
-                          @endif
-                        </td>
-                      </tr>
-
-                      <td height="40" colspan="4">
-                        <input class="btn btn-primary btn-lg btn-block" type="submit" name="submit" id="login" value="Log Masuk" />
-                      </td>
-                    </tr>
-                  </table>
+                    <div class="form-group">
+                      <label>Kata Laluan</label>
+                      <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                      @if ($errors->has('password'))
+                      <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('password') }}</strong>
+                      </span>
+                      @endif
+                    </div>
+                    <div class="form-group">
+                      <button class="btn btn-primary btn-lg btn-block" type="submit">Log Masuk</button>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                  </div>
                 </form>
+                <div class="col-md-12 text-center">
+                  Belum mempunyai akaun? <a href="/daftar"><strong>Sila daftar</strong> </a>
+                </div>
               </div>
             </div>
+            <!-- /.panel-body -->
           </div>
-          <!-- /.panel-body -->
+          <!-- /.panel -->
         </div>
-        <!-- /.panel -->
-      </div>
 
-    </div><!-- /.row -->
-  </div><!-- /.container-fluid -->
-</div><!-- /#page-wrapper -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div><!-- /#page-wrapper -->
 
 </div>
 <!-- /#wrapper -->

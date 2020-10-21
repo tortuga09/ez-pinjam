@@ -148,7 +148,7 @@
 
                   <div class="form-group">
                     <label>Tarikh Permohonan</label>
-                    <input class="form-control" name="apply_date" type="text" id="apply_date" value="<?php echo date("d/m/Y"); ?>" size="10" readonly/>
+                    <input class="form-control" name="apply_date" type="text" id="apply_date" value="{{ date('Y-m-d') }}" size="10" readonly/>
                   </div>
                   <div class="form-group">
                     <label>Nama</label>
@@ -444,7 +444,7 @@ $(document).ready(function(){
   var date_input  =$('input[name="tarikh_pinjam"]'); //our date input has the name "date"
   var container  =$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
   date_input.datepicker({
-    format: 'dd/mm/yyyy',
+    format: 'yyyy-mm-dd',
     container: container,
     todayHighlight: true,
     autoclose: true,
@@ -458,7 +458,7 @@ $(document).ready(function(){
   var date_input  =$('input[name="tarikh_pulang"]'); //our date input has the name "date"
   var container  =$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
   date_input.datepicker({
-    format: 'dd/mm/yyyy',
+    format: 'yyyy-mm-dd',
     container: container,
     todayHighlight: true,
     autoclose: true,

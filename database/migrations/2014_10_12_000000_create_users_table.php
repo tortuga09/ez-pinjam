@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('peranan');
-            $table->string('no_is');
+            $table->string('no_ic');
             $table->string('jawatan');
             $table->string('bahagian');
             $table->string('unit');

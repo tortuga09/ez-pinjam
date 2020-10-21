@@ -81,7 +81,7 @@
 
   <br>
   <div class="footnote">
-    Maklumat ini dijana pada : {{ date('d/m/Y H:i:s') }}
+    Maklumat ini dijana pada : {{ date('Y-m-d H:i:s') }}
   </div>
 </body>
 </html>

@@ -355,7 +355,7 @@ class AsetController extends Controller
 
         DB::table('agihan_nb')->where('item', $item)->where('id_permohonan', $id)
         ->update([
-          'tarikh_pulang' => date("d/m/Y"),
+          'tarikh_pulang' => date("Y-m-d"),
           'peg_pulang' => Auth::user()->nama,
           'catatan' => null,
           'updated_at' => date("Y-m-d H:i:s")
@@ -364,7 +364,7 @@ class AsetController extends Controller
       else {
         DB::table('agihan_nb')->where('item', $item)->where('id_permohonan', $id)
         ->update([
-          'tarikh_pulang' => date("d/m/Y"),
+          'tarikh_pulang' => date("Y-m-d"),
           'peg_pulang' => Auth::user()->nama,
           'catatan' => $request->input('catatNB'),
           'updated_at' => date("Y-m-d H:i:s")
@@ -383,7 +383,7 @@ class AsetController extends Controller
 
         DB::table('agihan_lcd')->where('item', $item)->where('id_permohonan', $id)
         ->update([
-          'tarikh_pulang' => date("d/m/Y"),
+          'tarikh_pulang' => date("Y-m-d"),
           'peg_pulang' => Auth::user()->nama,
           'catatan' => null,
           'updated_at' => date("Y-m-d H:i:s")
@@ -392,7 +392,7 @@ class AsetController extends Controller
       else {
         DB::table('agihan_lcd')->where('item', $item)->where('id_permohonan', $id)
         ->update([
-          'tarikh_pulang' => date("d/m/Y"),
+          'tarikh_pulang' => date("Y-m-d"),
           'peg_pulang' => Auth::user()->nama,
           'catatan' => $request->input('catatLCD'),
           'updated_at' => date("Y-m-d H:i:s")
@@ -411,7 +411,7 @@ class AsetController extends Controller
 
         DB::table('agihan_print')->where('item', $item)->where('id_permohonan', $id)
         ->update([
-          'tarikh_pulang' => date("d/m/Y"),
+          'tarikh_pulang' => date("Y-m-d"),
           'peg_pulang' => Auth::user()->nama,
           'catatan' => null,
           'updated_at' => date("Y-m-d H:i:s")
@@ -420,7 +420,7 @@ class AsetController extends Controller
       else {
         DB::table('agihan_print')->where('item', $item)->where('id_permohonan', $id)
         ->update([
-          'tarikh_pulang' => date("d/m/Y"),
+          'tarikh_pulang' => date("Y-m-d"),
           'peg_pulang' => Auth::user()->nama,
           'catatan' => $request->input('catatPRN'),
           'updated_at' => date("Y-m-d H:i:s")
@@ -439,7 +439,7 @@ class AsetController extends Controller
 
         DB::table('agihan_present')->where('item', $item)->where('id_permohonan', $id)
         ->update([
-          'tarikh_pulang' => date("d/m/Y"),
+          'tarikh_pulang' => date("Y-m-d"),
           'peg_pulang' => Auth::user()->nama,
           'catatan' => null,
           'updated_at' => date("Y-m-d H:i:s")
@@ -448,7 +448,7 @@ class AsetController extends Controller
       else {
         DB::table('agihan_present')->where('item', $item)->where('id_permohonan', $id)
         ->update([
-          'tarikh_pulang' => date("d/m/Y"),
+          'tarikh_pulang' => date("Y-m-d"),
           'peg_pulang' => Auth::user()->nama,
           'catatan' => $request->input('catatWLS'),
           'updated_at' => date("Y-m-d H:i:s")

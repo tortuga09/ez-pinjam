@@ -42,7 +42,7 @@
                   <td>{{ $list->apply_date }}</td>
                   <td>
                     <a title="{{ $list->sebab }}">{{ $list->status }}</a><br>
-                    @if($list->status == 'Diluluskan' and date('d/m/Y') > $list->tarikh_pulang)
+                    @if($list->status == 'Diluluskan' and date('Y-m-d') > $list->tarikh_pulang)
                     <a href="{{ route('reminder', ['id' => $list->id]) }}"><button class="btn btn-danger btn-xs">Hantar Peringatan!</button></a>
                     @endif
                   </td>

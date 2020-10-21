@@ -21,7 +21,7 @@
                   @if($bil_nb != '')
                   <tr>
                     <td width="25%"><b>Komputer Riba</b></td>
-                    <td width="10%" style="font-size:18px;" ><strong> unit</strong></td>
+                    <td width="10%" style="font-size:18px;" ><strong>{{ $bil_nb }} unit</strong></td>
                     <td class="form-inline">
                       @for($i=1; $i<=$bil_nb; $i++ )
                       <select class="form-control" name="nb{{$i}}" id="nb{{$i}}">
@@ -50,7 +50,7 @@
                   @if($bil_lcd != '')
                   <tr>
                     <td width="25%"><b>Projektor LCD</b></td>
-                    <td width="10%" style="font-size:18px;" ><strong> unit</strong></td>
+                    <td width="10%" style="font-size:18px;" ><strong>{{ $bil_lcd }} unit</strong></td>
                     <td class="form-inline">
                       @for($i=1; $i<=$bil_lcd; $i++ )
                       <select class="form-control" name="lcd{{$i}}" id="lcd{{$i}}">
@@ -79,7 +79,7 @@
                   @if($bil_print != '')
                   <tr>
                     <td width="25%"><b>Pencetak</b></td>
-                    <td width="10%" style="font-size:18px;" ><strong> unit</strong></td>
+                    <td width="10%" style="font-size:18px;" ><strong>{{ $bil_print }} unit</strong></td>
                     <td class="form-inline">
                       @for($i=1; $i<=$bil_print; $i++ )
                       <select class="form-control" name="print{{$i}}" id="print{{$i}}">
@@ -108,7 +108,7 @@
                   @if($bil_present != '')
                   <tr>
                     <td width="25%"><b>Wireless Presenter</b></td>
-                    <td width="10%" style="font-size:18px;" ><strong> unit</strong></td>
+                    <td width="10%" style="font-size:18px;" ><strong>{{ $bil_present }} unit</strong></td>
                     <td class="form-inline">
                       @for($i=1; $i<=$bil_present; $i++ )
                       <select class="form-control" name="present{{$i}}" id="present{{$i}}">

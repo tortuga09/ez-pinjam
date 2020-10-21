@@ -29,6 +29,5 @@ class Permohonan extends Model
       'bil_print',
       'bil_present',
       'user_id'
-
     ];
 }

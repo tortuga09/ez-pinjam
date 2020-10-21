@@ -88,12 +88,12 @@
                   </div>
                   <div class="col-md-8">
                     <div class="form-group">
-                      <label>No. Kad Pengenalan</label>
-                      <input class="form-control" name="no_ic" type="text"  value="" maxlength="12"/>
+                      <label>No. MyKad</label>
+                      <input class="form-control" name="no_ic" type="text" maxlength="12" required/>
                     </div>
                     <div class="form-group">
                       <label>Emel</label>
-                      <input class="form-control" name="email" type="email"  value="" />
+                      <input class="form-control" name="email" type="email" required />
                     </div>
                     <div class="form-group">
                       <button class="btn btn-primary btn-lg btn-block" type="submit">Teruskan</button>

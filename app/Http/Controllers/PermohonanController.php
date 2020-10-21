@@ -112,7 +112,7 @@ class PermohonanController extends Controller
       {
         $message->from($user->email, $user->nama);
         $message->to($permohonan->email, $permohonan->nama);
-        $message->cc('rt.photo.09@gmail.com', 'HelpdeskICT PERPADUAN');
+        $message->cc('sistem@email.com', 'HelpdeskICT PERPADUAN');
         $message->subject("Permohonan Pinjaman Peralatan Aset Sewaan ICT");
       });
 
@@ -254,7 +254,7 @@ class PermohonanController extends Controller
     {
       $message->from($user->email, $user->nama);
       $message->to($permohonan->email, $permohonan->nama);
-      $message->cc('rt.photo.09@gmail.com', 'HelpdeskICT PERPADUAN');
+      $message->cc('sistem@email.com', 'HelpdeskICT PERPADUAN');
       $message->subject("Permohonan Pinjaman Peralatan Aset Sewaan ICT");
     });
 
@@ -402,7 +402,7 @@ class PermohonanController extends Controller
     Mail::send('mail.email_permohonan', ['content' => $permohonan], function ($message) use ($permohonan)
     {
       $message->from($permohonan->email, $permohonan->nama);
-      $message->to('rt.photo.09@gmail.com', 'HelpdeskICT PERPADUAN');
+      $message->to('sistem@email.com', 'HelpdeskICT PERPADUAN');
       // $message->cc($admins->email);
       $message->subject("Permohonan Pinjaman Peralatan Aset Sewaan ICT");
     });
@@ -487,7 +487,7 @@ class PermohonanController extends Controller
     {
       $message->from('noreply@perpaduan.gov.my', 'Sistem e-Pinjam');
       $message->to($data->email, $data->nama);
-      $message->cc('rt.photo.09@gmail.com', 'HelpdeskICT PERPADUAN');
+      $message->cc('sistem@email.com', 'HelpdeskICT PERPADUAN');
       $message->subject("PERINGATAN! : Pemulangan Peralatan Aset Sewaan ICT");
     });
 
