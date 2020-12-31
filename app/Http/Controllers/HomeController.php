@@ -191,7 +191,7 @@ class HomeController extends Controller
     $jawatan = LookupJawatan::all();
 
     $hq = DB::table('penggunas')->orderBy('status', 'asc')->get();
-    return view('developer.hq', compact('user', 'bahagian', 'jawatan', 'hq'));
+    return view('developer.hq', compact('bahagian', 'jawatan', 'hq'));
   }
 
 
